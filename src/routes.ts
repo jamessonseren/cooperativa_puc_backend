@@ -4,6 +4,7 @@ import { AuthUserController } from "./Controllers/Users/loginUserController";
 import { newTransactionController } from "./Controllers/Transactions/newTransactionController";
 import { isAuthenticated } from "./middlewares/isAuth";
 import { DetailUserController } from "./Controllers/Users/userDetailsController";
+import { GetTransactionController } from "./Controllers/Transactions/GetTransactionController";
 
 const router = Router()
 
@@ -19,5 +20,6 @@ router.get('/me', isAuthenticated, new DetailUserController().handle )
 
 //transaction
 router.post('/transaction', isAuthenticated, new newTransactionController().handle )
+router.get('/transaction', isAuthenticated, new GetTransactionController().handle )
 
 export {router}

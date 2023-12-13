@@ -3,16 +3,16 @@ import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 
 interface AuthRequest {
-    email: string,
+    cpf: string,
     password: string
 }
 
 class AuthUserService {
-    async execute({ email, password}: AuthRequest ){
+    async execute({ cpf, password}: AuthRequest ){
 
         const user = await prismaClient.user.findUnique({
             where:{
-                email
+                cpf
             }
         })
 
@@ -27,7 +27,7 @@ class AuthUserService {
          const token = sign(
              {
                  name: user.name,
-                 email: user.email
+                 cpf: user.cpf
              },
              process.env.JWT_SECRET,
              {
@@ -39,7 +39,7 @@ class AuthUserService {
          return {
              id: user.id,
              name: user.name,
-             email: user.email,
+             cpf: user.cpf,
              token: token
          }
     }

@@ -9,6 +9,7 @@ class DetailUserService{
             },
             select:{
                 id: true,
+                cpf: true,
                 name: true,
                 email: true,
                 saldo: true

@@ -11,24 +11,30 @@ datasource db {
 }
 
 model User {
-  id           String    @id @default(uuid())
+  id           String       @id @default(uuid())
+  cpf          String       @unique
   name         String
-  email        String    @unique
+  email        String       @unique
   password     String
-  saldo        Float     @default(5000)
-  numero_conta String    @unique @default(uuid())
-  created_at   DateTime? @default(now())
-  updated_at   DateTime? @updatedAt
+  saldo        Float        @default(5000)
+  numero_conta String       @unique @default(uuid())
+  created_at   DateTime?    @default(now())
+  updated_at   DateTime?    @updatedAt
+  Transacoes   Transacoes[]
 
   @@map("users")
 }
 
 model Transacoes {
-  id        String         @id @default(uuid())
-  user_id   String
-  data      DateTime       @default(now())
-  descricao TipoTransacoes
-  valor     Float
+  id         String         @id @default(uuid())
+  user_id    String
+  data       DateTime       @default(now())
+  descricao  TipoTransacoes
+  valor      Float
+  created_at DateTime?      @default(now())
+  updated_at DateTime?      @updatedAt
+
+  User User @relation(fields: [user_id], references: [id])
 
   @@map("transacoes")
 }

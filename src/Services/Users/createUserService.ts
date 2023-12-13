@@ -3,6 +3,7 @@ import { hash } from "bcryptjs"
 
 interface UserRequest{
     name: string
+    cpf: string
     email: string
     password: string
 }
@@ -30,11 +31,13 @@ class CreateUserService{
         const user = await prismaClient.user.create({
             data:{
                 name: data.name,
+                cpf: data.cpf,
                 email: data.email,
                 password: passwordHash
             },
             select:{
                 id: true,
+                cpf: true,
                 name: true,
                 email: true
             }
